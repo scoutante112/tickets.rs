@@ -7,18 +7,18 @@ WORKDIR /tmp/compile
 
 COPY . .
 
-RUN cargo build --release --bin bot-list-updater
+RUN cargo build --release --bin bot_list_updater
 
 # Prod container
 FROM debian:buster
 
 RUN apt-get update && apt-get -y upgrade && apt-get -y install openssl libssl-dev ca-certificates
 
-COPY --from=builder /tmp/compile/target/release/bot-list-updater /srv/bot-list-updater/bot-list-updater
-RUN chmod +x /srv/bot-list-updater/bot-list-updater
+COPY --from=builder /tmp/compile/target/release/bot_list_updater /srv/bot_list_updater/bot_list_updater
+RUN chmod +x /srv/bot_list_updater/bot_list_updater
 
 RUN useradd -m container
 USER container
-WORKDIR /srv/bot-list-updater
+WORKDIR /srv/bot_list_updater
 
-CMD ["/srv/bot-list-updater/bot-list-updater"]
+CMD ["/srv/bot_list_updater/bot_list_updater"]

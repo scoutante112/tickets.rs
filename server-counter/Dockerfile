@@ -8,17 +8,17 @@ WORKDIR /tmp/compile
 
 COPY . .
 
-RUN cargo build --release --bin server-counter
+RUN cargo build --release --bin server_counter
 
 FROM debian:buster
 
 RUN apt-get update && apt-get -y upgrade && apt-get -y install openssl libssl-dev ca-certificates
 
-COPY --from=0 /tmp/compile/target/release/server-counter /srv/server-counter/server-counter
-RUN chmod +x /srv/server-counter/server-counter
+COPY --from=0 /tmp/compile/target/release/server_counter /srv/server_counter/server_counter
+RUN chmod +x /srv/server_counter/server_counter
 
 RUN useradd -m container
 USER container
-WORKDIR /srv/server-counter
+WORKDIR /srv/server_counter
 
-CMD ["/srv/server-counter/server-counter"]
+CMD ["/srv/server_counter/server_counter"]
