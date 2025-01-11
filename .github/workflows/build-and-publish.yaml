@@ -27,6 +27,10 @@ jobs:
             dockerfile: patreon-proxy/Dockerfile
           - package: cache-sync-service
             dockerfile: cache-sync-service/Dockerfile
+          - package: server-counter
+            dockerfile: server-counter/Dockerfile
+          - package: bot-list-updater
+            dockerfile: bot-list-updater/Dockerfile
     permissions:
       contents: read
       packages: write
@@ -51,7 +55,7 @@ jobs:
             TAG="latest"
           fi
           echo "IMAGE_TAG=${TAG}" >> $GITHUB_ENV
-          
+
       - name: Set image name
         run: |
           echo "IMAGE_NAME=${REGISTRY}/${GITHUB_REPOSITORY_OWNER,,}/${PACKAGE_NAME,,}" >> ${GITHUB_ENV}
