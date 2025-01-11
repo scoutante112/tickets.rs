@@ -46,6 +46,6 @@ impl Retriever {
 
 impl Default for Retriever {
     fn default() -> Self {
-        Self::new("https://servercounter.ticketsbot.net".to_owned())
+        Self::new("https://servercounter.ticketsbot.cloud".to_owned())
     }
 }
