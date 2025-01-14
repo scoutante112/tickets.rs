@@ -9,9 +9,9 @@ pub enum Tier {
 
 // TODO: Don't store these as constants
 pub const TIERS_PREMIUM_LEGACY: &[usize] = &[];
-pub const TIERS_WHITELABEL_LEGACY: &[usize] = &[];
-pub const TIERS_PREMIUM: &[usize] = &[24807710];
-pub const TIERS_WHITELABEL: &[usize] = &[24807722];
+pub const TIERS_WHITELABEL_LEGACY: &[usize] = &[24807722];
+pub const TIERS_PREMIUM: &[usize] = &[24807710, 24860764];
+pub const TIERS_WHITELABEL: &[usize] = &[];
 
 impl Tier {
     pub fn get_by_patreon_id(patreon_id: usize) -> Option<Tier> {
