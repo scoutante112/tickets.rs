@@ -30,7 +30,7 @@ async fn main() {
         debug!("Retrieved count of {}", count);
 
         let (dbl_res) = tokio::join!(
-            dbl_updater.update(count)
+            dbl_updater.update(count),
         );
 
         if let Err(e) = dbl_res {
