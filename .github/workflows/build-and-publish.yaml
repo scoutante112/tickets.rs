@@ -33,6 +33,8 @@ jobs:
             dockerfile: server-counter/Dockerfile
           - package: bot-list-updater
             dockerfile: bot-list-updater/Dockerfile
+          - package: image-proxy
+            dockerfile: image-proxy/Dockerfile
     permissions:
       contents: read
       packages: write
