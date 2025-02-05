@@ -9,6 +9,7 @@ pub struct Entitlement {
     pub label: String,
     pub patreon_tier_id: usize,
     pub is_legacy: bool,
+    pub priority: i32,
     pub expires_at: DateTime<Utc>,
 }
 
@@ -17,6 +18,7 @@ impl Entitlement {
         tier: Tier,
         patreon_tier_id: usize,
         is_legacy: bool,
+        priority: i32,
         expires_at: DateTime<Utc>,
     ) -> Entitlement {
         Entitlement {
@@ -24,6 +26,7 @@ impl Entitlement {
             tier,
             patreon_tier_id,
             is_legacy,
+            priority,
             expires_at,
         }
     }
@@ -39,9 +42,11 @@ impl Entitlement {
             Tier::Whitelabel => TIERS_WHITELABEL_LEGACY.contains(&patreon_id),
         };
 
+        let priority = tier.get_priority(patreon_id);
+
         let expires_at = calculate_expiry(member_attributes);
 
-        Some(Entitlement::new(tier, patreon_id, is_legacy, expires_at))
+        Some(Entitlement::new(tier, patreon_id, is_legacy, priority, expires_at))
     }
 
     pub fn entitled_skus(
@@ -58,6 +63,7 @@ impl Entitlement {
                     inherited,
                     patreon_id,
                     root.is_legacy,
+                    root.priority,
                     expires_at,
                 ));
             }

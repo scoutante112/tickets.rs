@@ -1,6 +1,6 @@
 use crate::patreon::tier::Tier::{Premium, Whitelabel};
 use serde::{Serialize, Serializer};
-
+use tracing::log::{warn};
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum Tier {
     Premium,
@@ -13,7 +13,26 @@ pub const TIERS_WHITELABEL_LEGACY: &[usize] = &[24807722];
 pub const TIERS_PREMIUM: &[usize] = &[24807710, 24860764];
 pub const TIERS_WHITELABEL: &[usize] = &[];
 
+// TODO: Don't store these as constants
+pub const TIER_PRIORITY: &[(usize, i32)] = &[
+    (24807722, 3),
+    (24860764, 2),
+    (24807710, 1),
+];
+
 impl Tier {
+    pub fn get_priority(&self, patreon_id: usize) -> i32 {
+        TIER_PRIORITY
+            .iter()
+            .find(|(id, _)| *id == patreon_id)
+            .map(|(_, priority)| *priority)
+            .unwrap_or_else(|| {
+                // If the tier is not in TIER_PRIORITY, set the priority to 0
+                warn!("Tier {:?} not found in TIER_PRIORITY", self);
+                0
+            })
+    }
+
     pub fn get_by_patreon_id(patreon_id: usize) -> Option<Tier> {
         if TIERS_WHITELABEL_LEGACY.contains(&patreon_id) || TIERS_WHITELABEL.contains(&patreon_id) {
             Some(Tier::Whitelabel)
