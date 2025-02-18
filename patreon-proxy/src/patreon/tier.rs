@@ -27,9 +27,9 @@ impl Tier {
             .find(|(id, _)| *id == patreon_id)
             .map(|(_, priority)| *priority)
             .unwrap_or_else(|| {
-                // If the tier is not in TIER_PRIORITY, set the priority to 0
+                // If the tier is not in TIER_PRIORITY, set the priority to 4 (highest) as it's probably from a key or another source
                 warn!("Tier {:?} not found in TIER_PRIORITY", self);
-                0
+                4
             })
     }
 
