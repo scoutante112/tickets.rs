@@ -7,6 +7,7 @@ pub struct Config {
     pub base_url: String,
 
     pub dbl_token: String,
+    pub tgg_token: String,
 }
 
 impl Config {
