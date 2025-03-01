@@ -7,7 +7,7 @@ WORKDIR /tmp/compile
 
 COPY . .
 
-RUN cargo build --release --bin bot_list_updater
+RUN cargo build --release --bin vote_listener
 
 # Prod container
 FROM debian:buster
