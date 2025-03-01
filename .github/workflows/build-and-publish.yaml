@@ -35,6 +35,8 @@ jobs:
             dockerfile: bot-list-updater/Dockerfile
           - package: image-proxy
             dockerfile: image-proxy/Dockerfile
+          - package: vote_listener
+            dockerfile: vote_listener/Dockerfile
     permissions:
       contents: read
       packages: write
