@@ -4,6 +4,7 @@ use serde::Deserialize;
 pub struct Config {
     pub server_addr: String,
     pub dbl_token: String,
+    pub tgg_token: String,
     pub database_uri: String,
     pub vote_url: String,
 }

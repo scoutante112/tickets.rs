@@ -20,6 +20,7 @@ impl Server {
         let app = Router::new()
             .route("/", get(routes::index_handler))
             .route("/vote/dbl", post(routes::vote_dbl_handler))
+            .route("/vote/tgg", post(routes::vote_tgg_handler))
             .layer(Extension(server.clone()));
 
         let addr = &server.config.server_addr[..].parse()?;
