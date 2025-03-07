@@ -12,13 +12,16 @@ RUN cargo build --release --bin stats-channel-updater
 
 FROM debian:buster
 
-RUN apt-get update && apt-get -y upgrade && apt-get -y install openssl libssl-dev ca-certificates
+RUN apt-get update && apt-get -y upgrade && apt-get -y install python3 openssl libssl-dev ca-certificates tini
 
-COPY --from=0 /tmp/compile/target/release/stats-channel-updater /srv/server_counter/server_counter
+COPY --from=0 /tmp/compile/target/release/stats-channel-updater /srv/stats-channel-updater/stats-channel-updater
 RUN chmod +x /srv/stats-channel-updater/stats-channel-updater
 
 RUN useradd -m container
 USER container
 WORKDIR /srv/stats-channel-updater
 
-CMD ["/srv/stats-channel-updater/stats-channel-updater"]
+COPY ./stats-channel-updater/entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["/bin/bash", "/entrypoint.sh"]
